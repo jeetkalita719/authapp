@@ -3,9 +3,6 @@ const AutoIncrement = require("mongoose-sequence")(mongoose);
 
 const ordersDataSchema = new mongoose.Schema(
   {
-    sno: {
-      type: Number,
-    },
     order: {
       namePlate: {
         required: {
@@ -37,7 +34,7 @@ const ordersDataSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-ordersDataSchema.plugin(AutoIncrement, { inc_field: "sno" });
+ordersDataSchema.plugin(AutoIncrement, { inc_field: "orderId" });
 
-const OrdersData = mongoose.model("OrdersData", ordersDataSchema);
+const OrdersData = models.OrdersData || mongoose.model("OrdersData", ordersDataSchema);
 export default OrdersData;
