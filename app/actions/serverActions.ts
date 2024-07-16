@@ -7,24 +7,42 @@ import userData from "@/models/userData";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { Translate } from '@google-cloud/translate/build/src/v2';
+// import { Translate } from '@google-cloud/translate/build/src/v2';
 
-const translate = new Translate({
-  key: process.env.GOOGLE_TRANSLATE_API_KEY
-});
+// const translate = new Translate({
+//   key: process.env.GOOGLE_TRANSLATE_API_KEY
+// });
 
-export async function transliterateToHindi(text:string) {
-  try {
-    const [translation] = await translate.translate(text, {
-      from: 'en',
-      to: 'hi',
-      format: 'text'
-    });
-    return translation;
-  } catch (error) {
-    console.error('Translation error:', error);
-    return 'Error occurred during translation';
+// export async function transliterateToHindi(text:string) {
+//   try {
+//     const [translation] = await translate.translate(text, {
+//       from: 'en',
+//       to: 'hi',
+//       format: 'text'
+//     });
+//     return translation;
+//   } catch (error) {
+//     console.error('Translation error:', error);
+//     return 'Error occurred during translation';
+//   }
+// }
+
+export async function translate(text:string, target:string, source:string,) {
+  var opts = {
+    text: text || "",
+    source: source || 'auto',
+    target: target || "en",
   }
+  var result = await fetch(
+    `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${opts.source}&tl=${opts.target}&dt=t&q=${encodeURI(opts.text)}`
+  ).then(res => res.json());
+  return {
+    source: opts.source,
+    target: opts.target,
+    original: text,
+    translated: result[0]?.[0]?.[0],
+    result,
+  };
 }
 
 export async function registerUser(formData: FormData) {

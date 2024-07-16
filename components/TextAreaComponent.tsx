@@ -1,26 +1,37 @@
-import { useState, ChangeEvent } from "react";
-import EnglishtoHinTranslate from "@/components/englishtohindiTranslate";
-import { Textarea } from "@/components/ui/textarea";
+"use client";
 
-const TextAreaComponent: React.FC = () => {
+import { useState, ChangeEvent } from "react";
+import { Textarea } from "@/components/ui/textarea";
+import { translate } from "@/app/actions/serverActions";
+
+export default function TextAreaComponent({name,placeholder}:{name:string,placeholder:string}) {
   const [textAreaValue, setTextAreaValue] = useState<string>("");
+  const [textAreaValueHin, setTextAreaValueHin] = useState<string>("");
+  const translateText = async () => {
+    const data = await translate(textAreaValue, "hi", "en");
+    setTextAreaValueHin(data.translated);
+  };
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
     setTextAreaValue(event.target.value);
+    translateText();
   };
 
   return (
-    <div>
+    <div className="w-full flex gap-4">
       <Textarea
-        placeholder="Enter remarks here"
+        placeholder={placeholder}
         className="flex-1"
-        name="namePlateRemarks"
+        name={name}
         value={textAreaValue}
         onChange={handleChange}
       />
-      <EnglishtoHinTranslate Username={textAreaValue as string} />
+      <Textarea
+        className="flex-1"
+        value={textAreaValueHin}
+        disabled
+      />
     </div>
   );
 };
 
-export default TextAreaComponent;

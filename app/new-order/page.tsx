@@ -72,7 +72,7 @@ export default async function newOrder() {
                 className="h-4 w-4"
               />
             </div>
-            <TextAreaComponent />
+            <TextAreaComponent name="namePlateRemarks" placeholder="Enter remarks here" />
           </div>
           <div className="w-full flex gap-8">
             <div className="flex justify-between w-[150px] py-4">
@@ -84,11 +84,7 @@ export default async function newOrder() {
                 className="h-4 w-4"
               />
             </div>
-            <Textarea
-              placeholder="Enter remarks here"
-              className="flex-1"
-              name="visitingCardRemarks"
-            />
+            <TextAreaComponent name="visitingCardRemarks" placeholder="Enter remarks here" />
           </div>
           <div className="w-full flex gap-8">
             <div className="flex justify-between w-[150px] py-4">
@@ -100,11 +96,7 @@ export default async function newOrder() {
                 className="h-4 w-4"
               />
             </div>
-            <Textarea
-              placeholder="Enter remarks here"
-              className="flex-1"
-              name="stampRemarks"
-            />
+            <TextAreaComponent name="stampRemarks" placeholder="Enter remarks here" />
           </div>
           <Button type="submit">Submit</Button>
         </form>
