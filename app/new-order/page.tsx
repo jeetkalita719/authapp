@@ -3,7 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { currentUser } from "@clerk/nextjs/server";
+import { Client, currentUser } from "@clerk/nextjs/server";
+
+import EnglishtoHinTranslate from "@/components/englishtohindiTranslate";
 
 export default async function newOrder() {
   const user = (await currentUser())!;
@@ -24,6 +26,7 @@ export default async function newOrder() {
               disabled
               value={user.fullName as string}
             />
+            <EnglishtoHinTranslate Username={user.fullName as string} />
           </div>
           <div className="flex-1 flex flex-col gap-2">
             <Label htmlFor="designation">Designation</Label>
@@ -48,7 +51,10 @@ export default async function newOrder() {
             />
           </div>
         </form>
-        <form className="py-10 flex flex-col gap-16 items-center" action={placeNewOrder}>
+        <form
+          className="py-10 flex flex-col gap-16 items-center"
+          action={placeNewOrder}
+        >
           <div className="w-full flex gap-8">
             <div className="flex justify-between w-[150px] py-4">
               <Label htmlFor="namePlate">Name Plate</Label>
@@ -59,7 +65,11 @@ export default async function newOrder() {
                 className="h-4 w-4"
               />
             </div>
-            <Textarea placeholder="Enter remarks here" className="flex-1" name="namePlateRemarks" />
+            <Textarea
+              placeholder="Enter remarks here"
+              className="flex-1"
+              name="namePlateRemarks"
+            />
           </div>
           <div className="w-full flex gap-8">
             <div className="flex justify-between w-[150px] py-4">
@@ -71,7 +81,11 @@ export default async function newOrder() {
                 className="h-4 w-4"
               />
             </div>
-            <Textarea placeholder="Enter remarks here" className="flex-1" name="visitingCardRemarks" />
+            <Textarea
+              placeholder="Enter remarks here"
+              className="flex-1"
+              name="visitingCardRemarks"
+            />
           </div>
           <div className="w-full flex gap-8">
             <div className="flex justify-between w-[150px] py-4">
@@ -83,7 +97,11 @@ export default async function newOrder() {
                 className="h-4 w-4"
               />
             </div>
-            <Textarea placeholder="Enter remarks here" className="flex-1" name="stampRemarks" />
+            <Textarea
+              placeholder="Enter remarks here"
+              className="flex-1"
+              name="stampRemarks"
+            />
           </div>
           <Button type="submit">Submit</Button>
         </form>

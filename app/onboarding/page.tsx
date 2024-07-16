@@ -1,6 +1,7 @@
 import { fetchUser, registerUser } from "@/app/actions/serverActions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { UserButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -9,17 +10,29 @@ export default async function Onboarding() {
   const userinDB = await fetchUser();
 
   if (userinDB?.data) {
-    redirect('/')
+    redirect("/");
   }
-    return (
+  return (
     <div className="w-screen h-screen">
       <form
         action={registerUser}
         className="max-w-5xl mx-auto py-20 flex flex-col gap-3"
       >
         <div className="grid grid-cols-2 gap-4">
-          <Input type="text" name="name" placeholder="Full Name" value={user.fullName!} disabled />
-          <Input type="text" name="username" placeholder="Username" value={user.username!} disabled />
+          <Input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            value={user.fullName!}
+            disabled
+          />
+          <Input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={user.username!}
+            disabled
+          />
           <Input
             type="text"
             name="designation"
