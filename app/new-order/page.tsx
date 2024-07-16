@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Client, currentUser } from "@clerk/nextjs/server";
 
 import EnglishtoHinTranslate from "@/components/englishtohindiTranslate";
+import TextAreaComponent from "@/components/TextAreaComponent";
 
 export default async function newOrder() {
   const user = (await currentUser())!;
@@ -36,7 +37,10 @@ export default async function newOrder() {
               name="designation"
               className="w-full"
               disabled
-              value={userinDB?.data.designation}
+              value={userinDB?.data.designation as string}
+            />
+            <EnglishtoHinTranslate
+              Username={userinDB?.data.designation as string}
             />
           </div>
           <div className="flex-1 flex flex-col gap-2">
@@ -47,7 +51,10 @@ export default async function newOrder() {
               name="department"
               className="w-full"
               disabled
-              value={userinDB?.data.department}
+              value={userinDB?.data.department as string}
+            />
+            <EnglishtoHinTranslate
+              Username={userinDB?.data.department as string}
             />
           </div>
         </form>
@@ -65,11 +72,7 @@ export default async function newOrder() {
                 className="h-4 w-4"
               />
             </div>
-            <Textarea
-              placeholder="Enter remarks here"
-              className="flex-1"
-              name="namePlateRemarks"
-            />
+            <TextAreaComponent />
           </div>
           <div className="w-full flex gap-8">
             <div className="flex justify-between w-[150px] py-4">
