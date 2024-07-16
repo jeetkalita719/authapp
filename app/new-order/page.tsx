@@ -15,7 +15,7 @@ export default async function newOrder() {
     <main className="w-screen h-screen">
       <section className="max-w-5xl mx-auto p-10">
         <h1 className="font-bold text-4xl">Place a new order here</h1>
-        <form className="py-10 flex gap-4 items-center">
+        <form className="py-10 flex gap-4">
           <div className="flex-1 flex flex-col gap-2">
             <Label htmlFor="name">Name</Label>
             <Input

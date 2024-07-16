@@ -7,6 +7,25 @@ import userData from "@/models/userData";
 import { currentUser } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { Translate } from '@google-cloud/translate/build/src/v2';
+
+const translate = new Translate({
+  key: process.env.GOOGLE_TRANSLATE_API_KEY
+});
+
+export async function transliterateToHindi(text:string) {
+  try {
+    const [translation] = await translate.translate(text, {
+      from: 'en',
+      to: 'hi',
+      format: 'text'
+    });
+    return translation;
+  } catch (error) {
+    console.error('Translation error:', error);
+    return 'Error occurred during translation';
+  }
+}
 
 export async function registerUser(formData: FormData) {
   const user = (await currentUser())!;
